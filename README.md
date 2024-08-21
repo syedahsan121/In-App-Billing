@@ -1,36 +1,112 @@
-InAppBilling Library
-The InAppBilling library provides a comprehensive solution for implementing in-app purchases and subscriptions in your Android application. This library simplifies the integration of Google Play Billing services, allowing you to manage in-app purchases and subscriptions with ease.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InAppBilling Library Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 20px;
+            padding: 0;
+        }
+        h1, h2, h3 {
+            color: #007BFF;
+        }
+        h1 {
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        p {
+            margin: 10px 0;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        ul {
+            list-style-type: disc;
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .center {
+            text-align: center;
+        }
+        .logo {
+            max-width: 150px;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+        .note {
+            background-color: #e7f0ff;
+            border-left: 4px solid #007BFF;
+            padding: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="center">InAppBilling Library</h1>
 
-Gradle Integration
-Step A: Add Maven Repository
-In your project-level build.gradle or settings.gradle file, add the JitPack repository:
+    <p class="center">
+        <img src="https://via.placeholder.com/150" alt="InAppBilling Logo" class="logo">
+    </p>
 
-gradle
-Copy code
-repositories {
-google()
-mavenCentral()
-maven { url "https://jitpack.io" }
-}
-Step B: Add Dependencies
-In your app-level build.gradle file, add the library dependency. Use the latest version:
+    <p class="center">
+        The InAppBilling library provides a comprehensive solution for implementing in-app purchases and subscriptions in your Android application.
+    </p>
 
-gradle
-Copy code
-implementation 'com.github.SyedAhsan:inappbilling:x.x.x'
-Technical Implementation
-Step 1: Initialize Billing
-Initialize the BillingManager with the application context:
+    <h2>Gradle Integration</h2>
 
-kotlin
-Copy code
-private val billingManager by lazy { BillingManager(context) }
-Step 2: Establish Billing Connection
-Retrieve a debugging ID for testing and ensure the purchaseDetailList parameter contains all active purchases and their details:
+    <h3>Step A: Add Maven Repository</h3>
+    <pre><code>repositories {
+    google()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}</code></pre>
 
-kotlin
-Copy code
-val subsProductIdList = listOf("subs_product_id_1", "subs_product_id_2", "subs_product_id_3")
+    <h3>Step B: Add Dependencies</h3>
+    <pre><code>implementation 'com.github.SyedAhsan:inappbilling:x.x.x'</code></pre>
+
+    <h2>Technical Implementation</h2>
+
+    <h3>Step 1: Initialize Billing</h3>
+    <pre><code>private val billingManager by lazy { BillingManager(context) }</code></pre>
+
+    <h3>Step 2: Establish Billing Connection</h3>
+    <pre><code>val subsProductIdList = listOf("subs_product_id_1", "subs_product_id_2", "subs_product_id_3")
 
 val productInAppConsumable = when (BuildConfig.DEBUG) {
 true -> listOf("product_id_1")
@@ -60,29 +136,23 @@ Log.d("BillingTAG", "Billing: initBilling: onConnectionResult: isSuccess = $isSu
             }
         }
     }
-)
-Access Comprehensive Details
-Access comprehensive details of the currently purchased item using the PurchaseDetail class:
+)</code></pre>
 
-kotlin
-Copy code
-data class PurchaseDetail(
-val productId: String,
-var planId: String,
-var productTitle: String,
-var planTitle: String,
-val purchaseToken: String,
-val productType: ProductType,
-val purchaseTime: String,
-val purchaseTimeMillis: Long,
-val isAutoRenewing: Boolean,
-)
-Step 3: Query Product
-Monitor all active in-app and subscription products:
+    <h3>Access Comprehensive Details</h3>
+    <pre><code>data class PurchaseDetail(
+    val productId: String,
+    var planId: String,
+    var productTitle: String,
+    var planTitle: String,
+    val purchaseToken: String,
+    val productType: ProductType,
+    val purchaseTime: String,
+    val purchaseTimeMillis: Long,
+    val isAutoRenewing: Boolean,
+)</code></pre>
 
-kotlin
-Copy code
-val subsProductIdList = listOf("subs_product_id_1", "subs_product_id_2", "subs_product_id_3")
+    <h3>Step 3: Query Product</h3>
+    <pre><code>val subsProductIdList = listOf("subs_product_id_1", "subs_product_id_2", "subs_product_id_3")
 val subsPlanIdList = listOf("subs-plan-id-1", "subs-plan-id-2", "subs-plan-id-3")
 
 billingManager.productDetailsLiveData.observe(viewLifecycleOwner) { productDetailList ->
@@ -102,106 +172,86 @@ Log.d("BillingTAG", "Billing: initObservers: $productDetailList")
             }
         }
     }
-}
-Retrieve comprehensive details of the item using the ProductDetail class:
+}</code></pre>
 
-kotlin
-Copy code
-data class ProductDetail(
-var productId: String,
-var planId: String,
-var productTitle: String,
-var planTitle: String,
-var productType: ProductType,
-var currencyCode: String,
-var price: String,
-var priceAmountMicros: Long = 0,
-var freeTrialDays: Int = 0,
-var billingPeriod: String,
-)
-Step 4: Make Purchases
-Purchasing In-App Products
-kotlin
-Copy code
-billingManager.makeInAppPurchase(activity, productId, object : OnPurchaseListener {
-override fun onPurchaseResult(isPurchaseSuccess: Boolean, message: String) {
-Log.d("BillingTAG", "makeInAppPurchase: $isPurchaseSuccess - $message")
-}
-})
-Purchasing Subscriptions
-kotlin
-Copy code
-billingManager.makeSubPurchase(
-activity,
-productId = "subs_product_id_1",
-planId = "subs-plan-id-1",
-object : OnPurchaseListener {
-override fun onPurchaseResult(isPurchaseSuccess: Boolean, message: String) {
-Log.d("BillingTAG", "makeSubPurchase: $isPurchaseSuccess - $message")
-}
-}
-)
-Updating Subscriptions
-kotlin
-Copy code
-billingManager.updateSubPurchase(
-activity,
-oldProductId = "subs_product_id_1",
-oldPlanId = "subs_plan_id_1",
-productId = "subs_product_id_2",
-planId = "subs_plan_id_2",
-object : OnPurchaseListener {
-override fun onPurchaseResult(isPurchaseSuccess: Boolean, message: String) {
-Log.d("BillingTAG", "updateSubPurchase: $isPurchaseSuccess - $message")
-}
-}
-)
-kotlin
-Copy code
-billingManager.updateSubPurchase(
-activity,
-oldProductId = "mOldProductID",
-productId = "New Product ID",
-planId = "New Plan ID",
-object : OnPurchaseListener {
-override fun onPurchaseResult(isPurchaseSuccess: Boolean, message: String) {
-Log.d("BillingTAG", "updateSubPurchase: $isPurchaseSuccess - $message")
-}
-}
-)
-Guidance
-Subscription Tags
-To add products and plans on the Play Console, consider using the following recommended subscription tags to generate plans.
+    <pre><code>data class ProductDetail(
+    var productId: String,
+    var planId: String,
+    var productTitle: String,
+    var planTitle: String,
+    var productType: ProductType,
+    var currencyCode: String,
+    var price: String,
+    var priceAmountMicros: Long = 0,
+    var freeTrialDays: Int = 0,
+    var billingPeriod: String,
+)</code></pre>
 
-Option 1:
-Product ID: product_id_weekly
-Plan ID: plan-id-weekly
+    <h3>Step 4: Make Purchases</h3>
+    
+    <h4>Purchasing In-App Products</h4>
+    <pre><code>billingManager.makeInAppPurchase(activity, productId, object : OnPurchaseListener {
+    override fun onPurchaseResult(isPurchaseSuccess: Boolean, message: String) {
+        Log.d("BillingTAG", "makeInAppPurchase: $isPurchaseSuccess - $message")
+    }
+})</code></pre>
 
-Product ID: product_id_monthly
-Plan ID: plan-id-monthly
+    <h4>Purchasing Subscriptions</h4>
+    <pre><code>billingManager.makeSubPurchase(
+    activity,
+    productId = "subs_product_id_1",
+    planId = "subs-plan-id-1",
+    object : OnPurchaseListener {
+        override fun onPurchaseResult(isPurchaseSuccess: Boolean, message: String) {
+            Log.d("BillingTAG", "makeSubPurchase: $isPurchaseSuccess - $message")
+        }
+    }
+)</code></pre>
 
-Product ID: product_id_yearly
-Plan ID: plan-id-yearly
+    <h4>Updating Subscriptions</h4>
+    <pre><code>billingManager.updateSubPurchase(
+    activity,
+    oldProductId = "subs_product_id_1",
+    oldPlanId = "subs_plan_id_1",
+    productId = "subs_product_id_2",
+    planId = "subs-plan-id-2",
+    object : OnPurchaseListener {
+        override fun onPurchaseResult(isPurchaseSuccess: Boolean, message: String) {
+            Log.d("BillingTAG", "updateSubPurchase: $isPurchaseSuccess - $message")
+        }
+    }
+)</code></pre>
 
-Option 2:
-If you purchase a product and want to retrieve an old purchase from Google, it won't return the plan ID, making it impossible to identify which plan was purchased. To address this, you should save the purchase information on your server, including the product and plan IDs. This way, you can maintain a purchase list for future reference. Alternatively, you can use Option 1, where each product ID is associated with only one plan ID. This ensures that when you fetch a product ID, you can easily determine the corresponding plan that was purchased.
+    <pre><code>billingManager.updateSubPurchase(
+    activity,
+    oldProductId = "mOldProductID",
+    productId = "New Product ID",
+    planId = "New Plan ID",
+    object : OnPurchaseListener {
+        override fun onPurchaseResult(isPurchaseSuccess: Boolean, message: String) {
+            Log.d("BillingTAG", "updateSubPurchase: $isPurchaseSuccess - $message")
+        }
+    }
+)</code></pre>
 
-For Gold Subscription:
+    <h2>Guidance</h2>
 
-Product ID: gold_product
-Plan ID: gold-plan-weekly
-Plan ID: gold-plan-monthly
-Plan ID: gold-plan-yearly
+    <h3>Subscription Tags</h3>
+    <p>To add products and plans on the Play Console, consider using the following recommended subscription tags to simplify identification:</p>
+    <ul>
+        <li><code>MONTHLY</code> - for Monthly Plans</li>
+        <li><code>YEARLY</code> - for Yearly Plans</li>
+        <li><code>FREE_TRIAL</code> - for Free Trials</li>
+    </ul>
 
-Billing Period (Subscription)
-Fixed billing periods for subscriptions:
+    <h3>Validation</h3>
+    <p>For verifying purchase data, you can use Google Play Developer API's <a href="https://developers.google.com/android-publisher/api-ref/purchases/subscription/get">Subscription Get API</a> for server-side validation.</p>
 
-Weekly
-Every 4 weeks
-Monthly
-Every 2 months (Bimonthly)
-Every 3 months (Quarterly)
-Every 4 months
-Every 6 months (Semiannually)
-Every 8 months
-Yearly
+    <div class="note">
+        <p>Note: Always keep your library up to date and review Google Play's policies regularly to ensure compliance.</p>
+    </div>
+    
+    <h2>License</h2>
+    <p>This library is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details.</p>
+</body>
+</html>
