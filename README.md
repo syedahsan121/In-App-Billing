@@ -2,78 +2,87 @@
 
 This repository demonstrates how to implement in-app purchases and subscriptions in your Android application using the Google Play Billing library.
 
+<style>
+  .code-block {
+    position: relative;
+  }
+  .code-block .copy-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px 10px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  .code-block .copy-btn:hover {
+    background-color: #e0e0e0;
+  }
+</style>
+
 <h2>Gradle Integration</h2>
 
 ### Step A: Add Maven Repository
 
-In your project-level `build.gradle` or `settings.gradle` file, add the JitPack repository:
-<pre>
+<div class="code-block">
+  <pre>
+    
+      repositories {
+          google()
+          mavenCentral()
+          maven { url "https://jitpack.io" }
+      }
 
-repositories {
-    google()
-    mavenCentral()
-    maven { url "https://jitpack.io" }
-}
-
-</pre>
+  </pre>
+  <button class="copy-btn" data-clipboard-text="repositories {
+          google()
+          mavenCentral()
+          maven { url &quot;https://jitpack.io&quot; }
+      }">Copy</button>
+</div>
 
 ### Step B: Add Dependencies
 
-In your app-level `build.gradle` file, add the library dependency:
-<pre>
+<div class="code-block">
+  <pre>
+  
+      dependencies {
+          implementation 'com.github.SyedAhsan:inappbilling:x.x.x'
+      }
 
-dependencies {
-    implementation 'com.github.SyedAhsan:inappbilling:x.x.x'
-}
-
-</pre>
+  </pre>
+  <button class="copy-btn" data-clipboard-text="dependencies {
+          implementation 'com.github.SyedAhsan:inappbilling:x.x.x'
+      }">Copy</button>
+</div>
 
 ### Step C: Initialize the Billing Client
 
-In your app's `Application` class, initialize the billing client:
-<pre>
+<div class="code-block">
+  <pre>
+  
+      class MyApplication : Application() {
+          override fun onCreate() {
+              super.onCreate()
+              BillingClientFactory.create(this, object : BillingClientFactory.Callback {
+                  override fun onBillingClientReady(billingClient: BillingClient) {
+                      // Initialize the billing client
+                  }
+              })
+          }
+      }
 
-class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        BillingClientFactory.create(this, object : BillingClientFactory.Callback {
-            override fun onBillingClientReady(billingClient: BillingClient) {
-                // Initialize the billing client
-            }
-        })
-    }
-}
-</pre>
-
-<h2>Usage</h2>
-
-### Purchase a Product
-
-To purchase a product, use the `launchPurchaseFlow` method:
-<pre>
-
-private fun purchaseProduct() {
-    val skuDetails = billingClient.querySkuDetailsAsync(
-        SkuDetailsParams.newBuilder()
-            .setSkusList(listOf("premium_product"))
-            .setType(BillingClient.SkuType.INAPP)
-            .build()
-    )
-    // Handle the purchase flow
-}
-
-</pre>
-
-### Handle Purchase Result
-
-To handle the purchase result, use the `onPurchasesUpdated` callback:
-<pre>
-
-override fun onPurchasesUpdated(billingResult: BillingResult, purchases: List&lt;Purchase&gt;) {
-    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-        // Handle the purchase success
-    } else {
-        // Handle the purchase failure
-    }
-}
-</pre>
+  </pre>
+  <button class="copy-btn" data-clipboard-text="class MyApplication : Application() {
+          override fun onCreate() {
+              super.onCreate()
+              BillingClientFactory.create(this, object : BillingClientFactory.Callback {
+                  override fun onBillingClientReady(billingClient: Billing Client) {
+                      // Initialize the billing client
+                  }
+              })
+          }
+      }">Copy</button>
+</div>
