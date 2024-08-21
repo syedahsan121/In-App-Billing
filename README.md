@@ -2,25 +2,7 @@
 
 This repository demonstrates how to implement in-app purchases and subscriptions in your Android application using the Google Play Billing library.
 
-<style>
-  .code-block {
-    position: relative;
-  }
-  .code-block .copy-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 5px 10px;
-    font-size: 12px;
-    border: none;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    cursor: pointer;
-  }
-  .code-block .copy-btn:hover {
-    background-color: #e0e0e0;
-  }
-</style>
+
 
 <h2>Gradle Integration</h2>
 
@@ -40,7 +22,7 @@ This repository demonstrates how to implement in-app purchases and subscriptions
           google()
           mavenCentral()
           maven { url &quot;https://jitpack.io&quot; }
-      }">Copy</button>
+      }"></button>
 </div>
 
 ### Step B: Add Dependencies
@@ -55,7 +37,7 @@ This repository demonstrates how to implement in-app purchases and subscriptions
   </pre>
   <button class="copy-btn" data-clipboard-text="dependencies {
           implementation 'com.github.SyedAhsan:inappbilling:x.x.x'
-      }">Copy</button>
+      }"></button>
 </div>
 
 ### Step C: Initialize the Billing Client
@@ -84,5 +66,5 @@ This repository demonstrates how to implement in-app purchases and subscriptions
                   }
               })
           }
-      }">Copy</button>
+      }"></button>
 </div>
